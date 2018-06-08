@@ -1,13 +1,13 @@
 start()
 
 function start() {
-    var btn = document.getElementById('entrar')
-    btn.onclick = function() {
-        
-    }
-}
-
-function eventBtnEntrar() {
-    var inputEmail = document.getElementById('entrar')
-
+    var user = document.getElementById('user')
+    var form = document.getElementById('formulario');
+    form.addEventListener('submit', function(e) {
+        // alerta o valor do campo
+        alert(user.value);
+    
+        // impede o envio do form
+        // e.preventDefault();
+    });
 }
