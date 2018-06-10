@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fornecedores</title>
+</head>
+<body>
+    <h1>Fornecedor</h1>
+
+    <div>
+        <label for="razao_social">Razão social:</label>
+        <input type="text" id="razao_social" autofocus placeholder="Razão social">
+    </div>
+    <div>
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" placeholder="Endereço">
+    </div>
+    <div>
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" id="cnpj" placeholder="CNPJ">
+    </div> 
+
+    <div>
+        <label for="inscricao">Inscrição Estadual:</label>
+        <input type="txt" id="inscricao" placeholder="Inscrição Estadual">
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Email">
+    </div>
+    <div>
+        <input type="button" id="btn-save" value="Save" >
+        <input type="button" id="btn-cancel" value="Cancel">
+    </div>
+
+    <table id="tblFornecedor" >
+        <tr>
+            <th>Razão social</th>
+            <th>Endereço</th>
+            <th>CNPJ</th>
+            <th>Inscrição Estadual:</th>
+            <th>Email</th>
+        </tr>
+    </table>
+
+    <script src="../js/cadastro-fornecedor.js"></script>
+</body>
+</html>
