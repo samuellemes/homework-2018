@@ -77,7 +77,9 @@ function createFornecedor(fornecedor) {
         editFornecedor(fornecedor, tdEdit)
     }
     var btnDelete = createBtn('Delete')
-    btnDelete.onclick = deletePerson
+    btnDelete.onclick = function() {
+        deleteFornecedor(fornecedor, tdDelete)
+    }
     
     tdEdit.appendChild(btnEdit)
     tdDelete.appendChild(btnDelete)
@@ -144,17 +146,20 @@ function editFornecedor(fornecedor, td) {
     inputRazaoSocial.focus()
 }
 
-function deletePerson() {
+function deleteFornecedor(fornecedor, td) {
     
     if(editRowIndex != -1) {
         alert('Você está no modo de edição!')
     } else {
-        var td = this.parentNode
         var tr = td.parentNode
     
         var tblFornecedor = document.getElementById('tblFornecedor')
         var tbody = tblFornecedor.tBodies[0]
         tbody.removeChild(tr)
+        
+        var pos = fornecedores.indexOf(fornecedor)
+        fornecedores.splice(pos, 1)
+        saveLocalStorage()
     }
 
     var inputRazaoSocial = document.getElementById('razao_social')
