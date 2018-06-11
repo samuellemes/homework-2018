@@ -69,20 +69,19 @@ function createFornecedor(fornecedor) {
     var tdCNPJ = createTd(fornecedor.CNPJ)
     var tdInscricaoEstadual = createTd(fornecedor.Inscricao)
     var tdEmail = createTd(fornecedor.Email)
-    var tdEdit = createTd('')
-    var tdDelete = createTd('')
+    var tdAcao = createTd('')
 
     var btnEdit = createBtn('Edit')
     btnEdit.onclick = function() {
-        editFornecedor(fornecedor, tdEdit)
+        editFornecedor(fornecedor, tdAcao)
     }
     var btnDelete = createBtn('Delete')
     btnDelete.onclick = function() {
-        deleteFornecedor(fornecedor, tdDelete)
+        deleteFornecedor(fornecedor, tdAcao)
     }
     
-    tdEdit.appendChild(btnEdit)
-    tdDelete.appendChild(btnDelete)
+    tdAcao.appendChild(btnEdit)
+    tdAcao.appendChild(btnDelete)
     
     var tblFornecedor = document.getElementById('tblFornecedor')
     var tbody = tblFornecedor.tBodies[0]
@@ -92,8 +91,7 @@ function createFornecedor(fornecedor) {
     tr.appendChild(tdCNPJ)
     tr.appendChild(tdInscricaoEstadual)
     tr.appendChild(tdEmail)
-    tr.appendChild(tdEdit)
-    tr.appendChild(tdDelete)
+    tr.appendChild(tdAcao)
 
     tbody.appendChild(tr)
 }
@@ -113,6 +111,10 @@ function createBtn(value) {
     var btn = document.createElement('input')
     btn.type = 'button'
     btn.value = value
+
+    if(value === "Edit") { btn.className = 'btn btn-primary' }
+    if(value === "Delete") { btn.className = "btn btn-danger" }
+
     return btn
 }
 
