@@ -1,4 +1,11 @@
 var editRowIndex = -1
+var fornecedores = []
+
+// Iniciando
+init()
+
+//Carregar Lista
+getList()
 
 function init() {
     var btSave = document.getElementById('btn-save')
@@ -25,7 +32,7 @@ function addFornecedor() {
     
     if(isValidInput(inputRazaoSocial) && isValidInput(inputEndereco) && isValidInput(inputCNPJ) && isValidInput(inputInscricaoEstadual) && isValidInput(inputEmail)) {
         if(editRowIndex == -1) {
-            createPerson(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail)
+            save(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail)
         } else {
             updatePerson(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail)
         }
@@ -41,13 +48,27 @@ function isValidInput(input) {
     return input.value.trim() != ""
 }
 
-function createPerson(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail) {
+function save(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail) {
+    var fornecedor = {
+        Razao: inputRazaoSocial.value,
+        Endereco: inputEndereco.value,
+        CNPJ: inputCNPJ.value,
+        Inscricao: inputInscricaoEstadual.value,
+        Email: inputEmail.value
+    }
+    fornecedores.push(fornecedor)
+    clearTable()
+    fornecedores.forEach(createFornecedor)
+    saveLocalStorage()
+}
+
+function createFornecedor(fornecedor) {
     var tr = createLine()
-    var tdRazaoSocial = createTd(inputRazaoSocial.value)
-    var tdEndereco = createTd(inputEndereco.value)
-    var tdCNPJ = createTd(inputCNPJ.value)
-    var tdInscricaoEstadual = createTd(inputInscricaoEstadual.value)
-    var tdEmail = createTd(inputEmail.value)
+    var tdRazaoSocial = createTd(fornecedor.Razao)
+    var tdEndereco = createTd(fornecedor.Endereco)
+    var tdCNPJ = createTd(fornecedor.CNPJ)
+    var tdInscricaoEstadual = createTd(fornecedor.Inscricao)
+    var tdEmail = createTd(fornecedor.Email)
     var tdEdit = createTd('')
     var tdDelete = createTd('')
 
@@ -163,5 +184,28 @@ function cancelEdit() {
     
     clearFields(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail)
 }
-// Iniciando
-init()
+
+function saveLocalStorage() {
+    var fornecedoresTxt = JSON.stringify(fornecedores);
+    localStorage.setItem("list-fornecedores", fornecedoresTxt);
+}
+
+function getList() {
+    var fornecedoresTxt = window.localStorage.getItem('list-fornecedores');
+    if(fornecedoresTxt) {
+        fornecedores = JSON.parse(fornecedoresTxt);
+        fornecedores.forEach(createFornecedor)
+    }
+}
+
+function clearTable() {
+    var table = document.getElementById('tblFornecedor');
+    var tBody = table.tBodies[0];
+    
+    // tBody.children.forEach(tBody.removeChild)
+
+    for (var i = tBody.children.length; i > 0; i--) {
+        var tr = tBody.children[i - 1];
+        tBody.removeChild(tr);
+    }
+}
