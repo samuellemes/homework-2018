@@ -34,7 +34,7 @@ function addFornecedor() {
         if(editRowIndex == -1) {
             save(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail)
         } else {
-            updatePerson(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail)
+            updateFornecedor(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail)
         }
 
         clearFields(inputRazaoSocial, inputEndereco, inputCNPJ, inputInscricaoEstadual, inputEmail)
@@ -73,7 +73,9 @@ function createFornecedor(fornecedor) {
     var tdDelete = createTd('')
 
     var btnEdit = createBtn('Edit')
-    btnEdit.onclick = editPerson
+    btnEdit.onclick = function() {
+        editFornecedor(fornecedor, tdEdit)
+    }
     var btnDelete = createBtn('Delete')
     btnDelete.onclick = deletePerson
     
@@ -122,10 +124,9 @@ function clearFields(inputRazaoSocial, inputEndereco, inpinputCNPJ, inputInscric
     inputRazaoSocial.focus()
 }
 
-function editPerson() {
-    var td = this.parentNode
+function editFornecedor(fornecedor, td) {
     var tr = td.parentNode
-    editRowIndex = tr.rowIndex
+    editRowIndex = fornecedores.indexOf(fornecedor)
     
     var tableDatas = tr.childNodes
     var inputRazaoSocial = document.getElementById('razao_social')
@@ -160,17 +161,28 @@ function deletePerson() {
     inputRazaoSocial.focus()
 }
 
-function updatePerson(inputRazaoSocial, inputEndereco, inputCNPJ, inputIscricaoEstadual, inputEmail) {
+function updateFornecedor(inputRazaoSocial, inputEndereco, inputCNPJ, inputIscricaoEstadual, inputEmail) {
     
-    var tblFornecedor = document.getElementById('tblFornecedor')
-    var tbody = tblFornecedor.tBodies[0]
-    var tr = tbody.children[editRowIndex]
+    // var tblFornecedor = document.getElementById('tblFornecedor')
+    // var tbody = tblFornecedor.tBodies[0]
+    // var tr = tbody.children[editRowIndex]
+    var fornecedor = fornecedores[editRowIndex]
 
-    tr.childNodes[0].innerHTML = inputRazaoSocial.value
-    tr.childNodes[1].innerHTML = inputEndereco.value
-    tr.childNodes[2].innerHTML = inputCNPJ.value
-    tr.childNodes[3].innerHTML = inputIscricaoEstadual.value
-    tr.childNodes[4].innerHTML = inputEmail.value
+    fornecedor.Razao = inputRazaoSocial.value
+    fornecedor.Endereco = inputEndereco.value
+    fornecedor.CNPJ = inputCNPJ.value
+    fornecedor.Inscricao = inputIscricaoEstadual.value
+    fornecedor.Email = inputEmail.value
+
+    // tr.childNodes[0].innerHTML = inputRazaoSocial.value
+    // tr.childNodes[1].innerHTML = inputEndereco.value
+    // tr.childNodes[2].innerHTML = inputCNPJ.value
+    // tr.childNodes[3].innerHTML = inputIscricaoEstadual.value
+    // tr.childNodes[4].innerHTML = inputEmail.value
+
+    clearTable()
+    fornecedores.forEach(createFornecedor)
+    saveLocalStorage()
 }
 
 function cancelEdit() {
@@ -201,8 +213,6 @@ function getList() {
 function clearTable() {
     var table = document.getElementById('tblFornecedor');
     var tBody = table.tBodies[0];
-    
-    // tBody.children.forEach(tBody.removeChild)
 
     for (var i = tBody.children.length; i > 0; i--) {
         var tr = tBody.children[i - 1];
