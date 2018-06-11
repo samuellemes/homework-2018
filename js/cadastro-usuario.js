@@ -32,7 +32,7 @@ function addUsuario() {
         if(editRowIndex == -1) {
             save(inputNome, inputEmail, inputSenha)
         } else {
-            updateMaterial(inputNome, inputEmail, inputSenha)
+            updateUsuario(inputNome, inputEmail, inputSenha)
         }
 
         clearFields(inputNome, inputEmail, inputSenha)
@@ -118,58 +118,52 @@ function clearFields(inputNome, inputEmail, inputSenha) {
     inputNome.focus()
 }
 
-function editUsuario(material, td) {
+function editUsuario(usuario, td) {
     var tr = td.parentNode
-    editRowIndex = usuarios.indexOf(material)
+    editRowIndex = usuarios.indexOf(usuario)
     
     var tableDatas = tr.childNodes
-    var inputCodigo = document.getElementById('codigo')
     var inputNome = document.getElementById('nome')
-    var inputDescricao = document.getElementById('descricao')
-    var inputQuantidade = document.getElementById('quantidade')
-    var inputUnidade = document.getElementById('unidade')
+    var inputEmail = document.getElementById('email')
+    var inputSenha = document.getElementById('senha')
 
-    inputCodigo.value = tableDatas[0].innerHTML
-    inputNome.value = tableDatas[1].innerHTML
-    inputDescricao.value = tableDatas[2].innerHTML
-    inputQuantidade.value = tableDatas[3].innerHTML
-    inputUnidade.value = tableDatas[4].innerHTML
+    inputNome.value = tableDatas[0].innerHTML
+    inputEmail.value = tableDatas[1].innerHTML
+    inputSenha.value = tableDatas[2].innerHTML
 
-    inputCodigo.focus()
+    inputNome.focus()
 }
 
-function deleteMaterial(material, td) {
+function deleteUsuario(usuario, td) {
     
     if(editRowIndex != -1) {
         alert('Você está no modo de edição!')
     } else {
         var tr = td.parentNode
     
-        var tblMaterial = document.getElementById('tblMaterial')
-        var tbody = tblMaterial.tBodies[0]
+        var tblUsuario = document.getElementById('tblUsuario')
+        var tbody = tblUsuario.tBodies[0]
         tbody.removeChild(tr)
         
-        var pos = usuarios.indexOf(material)
+        var pos = usuarios.indexOf(usuario)
         usuarios.splice(pos, 1)
         saveLocalStorage()
     }
 
-    var inputCodigo = document.getElementById('codigo')
-    inputCodigo.focus()
+    var inputNome = document.getElementById('nome')
+    inputNome.focus()
 }
 
-function updateMaterial(inputCodigo, inputNome, inputDescricao, inputQuantidade, inputUnidade) {
+function updateUsuario(inputNome, inputEmail, inputSenha) {
     
     // var tblFornecedor = document.getElementById('tblFornecedor')
     // var tbody = tblFornecedor.tBodies[0]
     // var tr = tbody.children[editRowIndex]
-    var material = usuarios[editRowIndex]
+    var usuario = usuarios[editRowIndex]
 
-    material.Codigo = inputCodigo.value
-    material.Nome = inputNome.value
-    material.Descricao = inputDescricao.value
-    material.Quantidade = inputQuantidade.value
-    material.Unidade = inputUnidade.value
+    usuario.Nome = inputNome.value
+    usuario.Email = inputEmail.value
+    usuario.senha = inputSenha.value
 
     // tr.childNodes[0].innerHTML = inputRazaoSocial.value
     // tr.childNodes[1].innerHTML = inputEndereco.value
@@ -185,31 +179,29 @@ function updateMaterial(inputCodigo, inputNome, inputDescricao, inputQuantidade,
 function cancelEdit() {
     editRowIndex = -1
     
-    var inputCodigo = document.getElementById('codigo')
     var inputNome = document.getElementById('nome')
-    var inputDescricao = document.getElementById('descricao')
-    var inputQuantidade = document.getElementById('quantidade')
-    var inputUnidade = document.getElementById('unidade')
+    var inputEmail = document.getElementById('email')
+    var inputSenha = document.getElementById('senha')
     
-    clearFields(inputCodigo, inputNome, inputDescricao, inputQuantidade, inputUnidade)
+    clearFields(inputNome, inputEmail, inputSenha)
 }
 
 function saveLocalStorage() {
-    var materiaisTxt = JSON.stringify(usuarios);
-    localStorage.setItem("list-materiais", materiaisTxt);
+    var usuariosTxt = JSON.stringify(usuarios);
+    localStorage.setItem("list-usuarios", usuariosTxt);
 }
 
 function getList() {
-    var materiaisTxt = window.localStorage.getItem('list-materiais');
-    if(materiaisTxt) {
-        usuarios = JSON.parse(materiaisTxt);
+    var usuariosTxt = window.localStorage.getItem('list-usuarios');
+    if(usuariosTxt) {
+        usuarios = JSON.parse(usuariosTxt);
         usuarios.forEach(createUsuario)
     }
 }
 
 function clearTable() {
-    var table = document.getElementById('tblMaterial');
-    var tBody = table.tBodies[0];
+    var tblUsuario = document.getElementById('tblUsuario');
+    var tBody = tblUsuario.tBodies[0];
 
     for (var i = tBody.children.length; i > 0; i--) {
         var tr = tBody.children[i - 1];
