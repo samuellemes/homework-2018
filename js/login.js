@@ -1,5 +1,3 @@
-start()
-
 function start() {
     var user = document.getElementById('user')
     var form = document.getElementById('formulario');
