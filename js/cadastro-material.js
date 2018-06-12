@@ -217,3 +217,17 @@ function clearTable() {
         tBody.removeChild(tr);
     }
 }
+
+CreatePDF()
+
+function CreatePDF() {
+    var btn = document.getElementById('btn-relatorio')
+    btn.onclick = function() {
+        var pdf = new jsPDF()
+        for (let i = 0; i < materiais.length; i++) {
+            const material = materiais[i];
+            pdf.text(30, 30, JSON.stringify(materiais))
+        }
+        pdf.save('hello-world.pdf')
+    }
+}
