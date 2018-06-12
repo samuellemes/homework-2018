@@ -4,7 +4,7 @@ var materiais = []
 // Iniciando
 init()
 
-//Carregar Lista
+////Pegar Lista do LocalStorage
 getList()
 
 function init() {
@@ -170,9 +170,6 @@ function deleteMaterial(material, td) {
 
 function updateMaterial(inputCodigo, inputNome, inputDescricao, inputQuantidade, inputUnidade) {
     
-    // var tblFornecedor = document.getElementById('tblFornecedor')
-    // var tbody = tblFornecedor.tBodies[0]
-    // var tr = tbody.children[editRowIndex]
     var material = materiais[editRowIndex]
 
     material.Codigo = inputCodigo.value
@@ -180,13 +177,7 @@ function updateMaterial(inputCodigo, inputNome, inputDescricao, inputQuantidade,
     material.Descricao = inputDescricao.value
     material.Quantidade = inputQuantidade.value
     material.Unidade = inputUnidade.value
-
-    // tr.childNodes[0].innerHTML = inputRazaoSocial.value
-    // tr.childNodes[1].innerHTML = inputEndereco.value
-    // tr.childNodes[2].innerHTML = inputCNPJ.value
-    // tr.childNodes[3].innerHTML = inputIscricaoEstadual.value
-    // tr.childNodes[4].innerHTML = inputEmail.value
-
+    
     clearTable()
     materiais.forEach(createMaterial)
     saveLocalStorage()

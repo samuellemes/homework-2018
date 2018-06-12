@@ -4,7 +4,7 @@ var usuarios = []
 // Iniciando
 init()
 
-//Carregar Lista
+////Pegar Lista do LocalStorage
 getList()
 
 function init() {
@@ -156,20 +156,11 @@ function deleteUsuario(usuario, td) {
 
 function updateUsuario(inputNome, inputEmail, inputSenha) {
     
-    // var tblFornecedor = document.getElementById('tblFornecedor')
-    // var tbody = tblFornecedor.tBodies[0]
-    // var tr = tbody.children[editRowIndex]
     var usuario = usuarios[editRowIndex]
 
     usuario.Nome = inputNome.value
     usuario.Email = inputEmail.value
     usuario.senha = inputSenha.value
-
-    // tr.childNodes[0].innerHTML = inputRazaoSocial.value
-    // tr.childNodes[1].innerHTML = inputEndereco.value
-    // tr.childNodes[2].innerHTML = inputCNPJ.value
-    // tr.childNodes[3].innerHTML = inputIscricaoEstadual.value
-    // tr.childNodes[4].innerHTML = inputEmail.value
 
     clearTable()
     usuarios.forEach(createUsuario)

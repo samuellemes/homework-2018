@@ -4,7 +4,7 @@ var fornecedores = []
 // Iniciando
 init()
 
-//Carregar Lista
+//Pegar Lista do LocalStorage
 getList()
 
 function init() {
@@ -170,9 +170,6 @@ function deleteFornecedor(fornecedor, td) {
 
 function updateFornecedor(inputRazaoSocial, inputEndereco, inputCNPJ, inputIscricaoEstadual, inputEmail) {
     
-    // var tblFornecedor = document.getElementById('tblFornecedor')
-    // var tbody = tblFornecedor.tBodies[0]
-    // var tr = tbody.children[editRowIndex]
     var fornecedor = fornecedores[editRowIndex]
 
     fornecedor.Razao = inputRazaoSocial.value
@@ -180,12 +177,6 @@ function updateFornecedor(inputRazaoSocial, inputEndereco, inputCNPJ, inputIscri
     fornecedor.CNPJ = inputCNPJ.value
     fornecedor.Inscricao = inputIscricaoEstadual.value
     fornecedor.Email = inputEmail.value
-
-    // tr.childNodes[0].innerHTML = inputRazaoSocial.value
-    // tr.childNodes[1].innerHTML = inputEndereco.value
-    // tr.childNodes[2].innerHTML = inputCNPJ.value
-    // tr.childNodes[3].innerHTML = inputIscricaoEstadual.value
-    // tr.childNodes[4].innerHTML = inputEmail.value
 
     clearTable()
     fornecedores.forEach(createFornecedor)
